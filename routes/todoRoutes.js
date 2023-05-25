@@ -6,13 +6,14 @@ const {
   deleteTodoList,
   updateTodoList,
 } = require("../controllers/todoController");
+const { validateToken } = require("../middleware/validateTokenHandler");
 
 const router = express.Router();
 
-router.post("/addTodoList", addTodoList);
-router.get("/:id", getTodoList);
-router.get("/", getTodoLists);
-router.delete("/:id", deleteTodoList);
-router.patch("/:id", updateTodoList);
+router.post("/addTodo", validateToken, addTodoList);
+router.get("/:id", validateToken, getTodoList);
+router.get("/", validateToken, getTodoLists);
+router.delete("/:id", validateToken, deleteTodoList);
+router.patch("/:id", validateToken, updateTodoList);
 
 module.exports = router;

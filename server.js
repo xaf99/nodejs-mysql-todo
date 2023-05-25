@@ -15,6 +15,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/todo", require("./routes/todoRoutes"));
 
 app.use(errorHandler);

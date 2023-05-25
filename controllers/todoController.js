@@ -18,7 +18,7 @@ const getTodoLists = asyncHandler(async (req, res) => {
 
 const getTodoList = asyncHandler(async (req, res) => {
   connection.query(
-    "SELECT * FROM todos WHERE id =?",
+    "SELECT * FROM todos WHERE task_id =?",
     [req.params.id],
     (err, rows) => {
       if (err) {
@@ -37,7 +37,7 @@ const getTodoList = asyncHandler(async (req, res) => {
 
 const deleteTodoList = asyncHandler(async (req, res) => {
   connection.query(
-    "DELETE FROM todos WHERE id =?",
+    "DELETE FROM todos WHERE task_id =?",
     [req.params.id],
     (err, rows) => {
       if (err) {
@@ -56,9 +56,9 @@ const deleteTodoList = asyncHandler(async (req, res) => {
 
 const addTodoList = asyncHandler(async (req, res) => {
   const todolist = req.body;
-  const data = [todolist.name, todolist.description];
+  const data = [todolist.name, todolist.description, todolist.status];
   connection.query(
-    "INSERT INTO todolist(name,description) values(?)",
+    "INSERT INTO todos(name,description,status) values(?)",
     [data],
     (err, rows) => {
       if (err) {
@@ -78,7 +78,7 @@ const addTodoList = asyncHandler(async (req, res) => {
 const updateTodoList = asyncHandler(async (req, res) => {
   const todolist = req.body;
   connection.query(
-    `UPDATE todos SET ? WHERE id =${req.params.id}`,
+    `UPDATE todos SET ? WHERE task_id =${req.params.id}`,
     [todolist],
     (err, rows) => {
       if (err) {
